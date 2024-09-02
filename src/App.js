@@ -1,10 +1,11 @@
 
-import Home from "./containers/home"
+import Component1 from "./containers/home";
+
 
 function App() {
   return (
     <div className="App">
-       <Home />
+       <Component1/>
     </div>
   );
 }
