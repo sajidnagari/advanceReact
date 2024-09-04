@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { compare } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   try {
@@ -13,16 +14,12 @@ export async function POST(request: Request) {
       );
     }
 
-   
-
-
     if (!password) {
-      return NextResponse.json(
+      return NextResponse.json(//-
         { message: 'Invalid username or password' },
         { status: 401 }
       );
     }
-
     const token = jwt.sign(
       { userId: 1},
       'secretkey',
@@ -30,6 +27,13 @@ export async function POST(request: Request) {
         expiresIn: '1h',
       }
     );
+
+    cookies().set('token', token, {//+
+      path: '/',//+
+      httpOnly: true,//+
+      secure: process.env.NODE_ENV === 'production',//+
+      sameSite: 'strict',//+
+    });//+
 
     return NextResponse.json({
       token,

@@ -3,13 +3,19 @@ import React from 'react';
 import Link from 'next/link';
 import { useGlobalState } from '@/app/globalContext/globalContext';
 import { useRouter } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 const Navbar = () => {
   const {isUserLogin, setIsUserLogin}  = useGlobalState()
   const route =  useRouter()
 
-  const handleLogout  = () =>{
-    localStorage.removeItem('token')
+  const handleLogout  = async() =>{
+    const resutl =  await  fetch('/api/logout',{
+      method: "POST",
+      headers: {
+       'Content-Type': 'Application/json'
+      },
+    })
     setIsUserLogin(false)
     route.push('/login')
   }
