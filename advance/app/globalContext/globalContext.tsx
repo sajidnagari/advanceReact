@@ -1,5 +1,11 @@
-'use client'
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+"use client";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 type GlobalStateType = {
   user: string;
@@ -8,11 +14,10 @@ type GlobalStateType = {
   isUserLogin: boolean;
   setCount: React.Dispatch<React.SetStateAction<number>>;
   setIsUserLogin: React.Dispatch<React.SetStateAction<boolean>>;
-  
 };
 
 export const GlobalState = createContext<GlobalStateType>({
-  user: 'Ali',
+  user: "Ali",
   setUser: () => {},
   count: 0,
   isUserLogin: false,
@@ -25,16 +30,16 @@ type GlobalProviderProps = {
 };
 
 export const GlobalProvider = ({ children }: GlobalProviderProps) => {
-  const [user, setUser] = useState<string>('Ali');
+  const [user, setUser] = useState<string>("Ali");
   const [count, setCount] = useState<number>(0);
-  const [isUserLogin, setIsUserLogin] =  useState<boolean>(false)
+  const [isUserLogin, setIsUserLogin] = useState<boolean>(false);
 
-  const isUserLoginWithToken =  localStorage.getItem('token')
-  useEffect(() =>{
-     if(isUserLoginWithToken){
-      setIsUserLogin(true)
-     }
-  },[isUserLoginWithToken])
+  const isUserLoginWithToken = localStorage.getItem("token");
+  useEffect(() => {
+    if (isUserLoginWithToken) {
+      setIsUserLogin(true);
+    }
+  }, [isUserLoginWithToken]);
 
   return (
     <GlobalState.Provider
@@ -44,7 +49,7 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
         count,
         setCount,
         isUserLogin,
-        setIsUserLogin
+        setIsUserLogin,
       }}
     >
       {children}

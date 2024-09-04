@@ -1,11 +1,9 @@
-import Image from "next/image";
-import Navbar from "@/components/navbar/navbar";
+import LoginForm from "@/components/loginForm/LoginForm";
 
 export default function Home() {
-
   return (
-    <main >
-         <Navbar/>
+    <main>
+      <LoginForm />
     </main>
   );
 }
