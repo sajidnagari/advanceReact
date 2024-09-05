@@ -16,7 +16,9 @@ const Navbar = () => {
        'Content-Type': 'Application/json'
       },
     })
-    setIsUserLogin(false)
+    setIsUserLogin(false);
+    console.log(resutl,'result');
+    
     route.push('/login')
   }
 

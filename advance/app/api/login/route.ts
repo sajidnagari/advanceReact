@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     }
 
     if (!password) {
-      return NextResponse.json(//-
+      return NextResponse.json(
         { message: 'Invalid username or password' },
         { status: 401 }
       );
@@ -28,12 +28,12 @@ export async function POST(request: Request) {
       }
     );
 
-    cookies().set('token', token, {//+
-      path: '/',//+
-      httpOnly: true,//+
-      secure: process.env.NODE_ENV === 'production',//+
-      sameSite: 'strict',//+
-    });//+
+    cookies().set('token', token, {
+      path: '/',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
 
     return NextResponse.json({
       token,

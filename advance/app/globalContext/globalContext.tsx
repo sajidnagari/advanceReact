@@ -8,7 +8,6 @@ type GlobalStateType = {
   isUserLogin: boolean;
   setCount: React.Dispatch<React.SetStateAction<number>>;
   setIsUserLogin: React.Dispatch<React.SetStateAction<boolean>>;
-  
 };
 
 export const GlobalState = createContext<GlobalStateType>({
@@ -27,14 +26,16 @@ type GlobalProviderProps = {
 export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [user, setUser] = useState<string>('Ali');
   const [count, setCount] = useState<number>(0);
-  const [isUserLogin, setIsUserLogin] =  useState<boolean>(false)
+  const [isUserLogin, setIsUserLogin] = useState<boolean>(false);
 
-  const isUserLoginWithToken =  localStorage.getItem('token')
-  useEffect(() =>{
-     if(isUserLoginWithToken){
-      setIsUserLogin(true)
-     }
-  },[isUserLoginWithToken])
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        setIsUserLogin(true);
+      }
+    }
+  }, []);
 
   return (
     <GlobalState.Provider
@@ -44,7 +45,7 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
         count,
         setCount,
         isUserLogin,
-        setIsUserLogin
+        setIsUserLogin,
       }}
     >
       {children}
